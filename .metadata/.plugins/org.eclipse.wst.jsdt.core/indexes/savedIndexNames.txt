@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+/Users/anastasisgkikas/Desktop/java2project/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3927879410.index
