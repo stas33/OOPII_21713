@@ -3,7 +3,7 @@ package Service;
 import static Service.City.getCriterion4;
 import static Service.City.getCriterion5;
 
-// inheritance (Business class is child of Traveller class) //
+// inheritance (Business class is child of Traveller class)
 public class Business extends Traveller {
 
 	public Business(String att1, int att2, double att3, double att4) {
@@ -12,7 +12,7 @@ public class Business extends Traveller {
 	}
 	
 	
-	// Calculate distance based on current lat lot and destination's lat lon //
+	// Calculate distance based on current lat lot and destination's lat lon
 	public static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 		if ((lat1 == lat2) && (lon1 == lon2)) {
 			return 0;
@@ -32,10 +32,10 @@ public class Business extends Traveller {
 		}
 	}
 	
-	// Override Similarity method of business class (same return type, same object types) //
-	// Takes two objects as parameter //
-	// Pass the calculated distance  in a double variable and makes casting in order to return the result as integer //
-	// Getcriterion4() and GetCriterion5() have been calculated from the RetrieveOpenWeatherMap method //
+	// Override Similarity method of business class (same return type, same object types)
+	// Takes two objects as parameter
+	// Pass the calculated distance  in a double variable and makes casting in order to return the result as integer
+	// Getcriterion4() and GetCriterion5() have been calculated from the RetrieveOpenWeatherMap method
 	@Override
 	public int Similarity(Object obj1,Object obj2) {
 		double dist;

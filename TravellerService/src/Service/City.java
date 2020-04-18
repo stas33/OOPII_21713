@@ -19,7 +19,7 @@ import wikipedia.MediaWiki;
 
 public class City {
 	
-		// create city constructor // 
+		// create city constructor
 		public City(String criterion1, String criterion2, String criterion3, double criterion4, double criterion5) {
 		super();
 		Criterion1 = criterion1;
@@ -36,7 +36,7 @@ public class City {
 		private static double Criterion5;
 		
 		
-		// setters and getters //
+		// setters and getters
 		
 		public static String getCriterion1() {
 			return Criterion1;
@@ -79,9 +79,9 @@ public class City {
 		}
 		
 		
-		// Retrieve data from Open weather map //
-		// Takes three strings as parameters //
-		// Returns city's temperature, latitude(getCriterion4), longitude (getCriterion5) //
+		// Retrieve data from Open weather map
+		// Takes three strings as parameters
+		// Returns city's temperature, latitude(getCriterion4), longitude (getCriterion5)
 		public static void RetrieveOpenWeatherMap(String city, String country, String appid) throws JsonParseException, JsonMappingException, IOException {
 			ClientConfig config = new DefaultClientConfig();
 			Client client = Client.create(config);
@@ -95,9 +95,9 @@ public class City {
 			System.out.println(city+" lat: " + getCriterion4()+" lon: " + getCriterion5());
 		}
 		
-		// Retrieve data for city from Wikipedia //
-		// Takes a string as input //
-		// Returns the matches city article //
+		// Retrieve data for city from Wikipedia
+		// Takes a string as input
+		// Returns the matches city article
 		public static String RetrieveWikipedia(String city) throws  IOException, Exception {
 			String article;
 			ClientConfig config = new DefaultClientConfig();

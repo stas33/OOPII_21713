@@ -1,6 +1,6 @@
 package Service;
 
-// inheritance (Tourist class is child of Traveller class) //
+// inheritance (Tourist class is child of Traveller class)
 public class Tourist extends Traveller {
 
 	public Tourist(String att1, int att2, double att3, double att4) {
@@ -10,8 +10,8 @@ public class Tourist extends Traveller {
 	
 	
 	
-	// Override method of Tourist class (same return type, same objects) //
-	// Having trouble on implementing this method //
+	// Override method of Tourist class (same return type, same objects)
+	// Having trouble on implementing this method
 	@Override
 	public int Similarity(Object obj1, Object obj2) {
 		 
