@@ -1,9 +1,12 @@
 package Service;
 
+import static Service.City.getCriterion4;
+import static Service.City.getCriterion5;
+
 // inheritance (Business class is child of Traveller class) //
 public class Business extends Traveller {
 
-	public Business(String att1, String att2, double att3, double att4) {
+	public Business(String att1, int att2, double att3, double att4) {
 		super(att1, att2, att3, att4);
 		// TODO Auto-generated constructor stub
 	}
@@ -36,7 +39,7 @@ public class Business extends Traveller {
 	@Override
 	public int Similarity(Object obj1,Object obj2) {
 		double dist;
-		dist = Business.distance(Business.getAtt3(), Business.getAtt4(), City.getCriterion4(), City.getCriterion5(), "K");
+		dist = Business.distance(getAtt3(), getAtt4(), getCriterion4(), getCriterion5(), "K");
 		int sim = (int) dist;
 		return sim;
 	}
