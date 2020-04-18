@@ -1,11 +1,10 @@
 package Service;
 
-
 import java.io.IOException;
-
+import java.util.Map;
+import java.util.Scanner;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
-
 import org.apache.http.client.ClientProtocolException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -30,36 +29,36 @@ public class City {
 		Criterion5 = criterion5;
 		}
 		
-		private String Criterion1;
-		private String Criterion2;
-		private String Criterion3;
+		private static String Criterion1;
+		private static String Criterion2;
+		private static String Criterion3;
 		private static double Criterion4;
 		private static double Criterion5;
 		
 		
 		// setters and getters //
 		
-		public String getCriterion1() {
+		public static String getCriterion1() {
 			return Criterion1;
 		}
 		
-		public void setCriterion1(String criterion1) {
+		public static void setCriterion1(String criterion1) {
 			Criterion1 = criterion1;
 		}
 		
-		public String getCriterion2() {
+		public static String getCriterion2() {
 			return Criterion2;
 		}
 		
-		public void setCriterion2(String criterion2) {
+		public static void setCriterion2(String criterion2) {
 			Criterion2 = criterion2;
 		}
 		
-		public String getCriterion3() {
+		public static String getCriterion3() {
 			return Criterion3;
 		}
 		
-		public void setCriterion3(String criterion3) {
+		public static void setCriterion3(String criterion3) {
 			Criterion3 = criterion3;
 		}
 		
@@ -100,7 +99,7 @@ public class City {
 		// Takes a string as input //
 		// Returns the matches city article //
 		public static String RetrieveWikipedia(String city) throws  IOException, Exception {
-			String article="";
+			String article;
 			ClientConfig config = new DefaultClientConfig();
 			Client client = Client.create(config);
 			WebResource service = client.resource(UriBuilder.fromUri("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&titles="+city+"&format=json&formatversion=2").build());      
@@ -113,6 +112,56 @@ public class City {
 			} else throw new Exception(city);
 			return article;	 
 		}
+
+	public static void CheckCityInCollection(String cityName, Map<String, City> map) {
+		Scanner s = new Scanner(System.in);
+		City cand = new City("", "", "", 0.0d, 0.0d);
+		setCriterion1(cityName);
+		setCriterion2(s.next());
+		setCriterion3(s.next());
+		setCriterion4(s.nextDouble());
+		setCriterion5(s.nextDouble());
+		for (Map.Entry<String, City> entry : map.entrySet()) {
+			boolean check = map.equals(cand);
+			if(!check) {
+				map.put(cityName, cand);
+				System.out.println("City added successfully");
+			} else {
+				System.out.println("cityName already exists in the collection");
+			}
+		}
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this== o) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof City)) {
+			return false;
+		}
+		City city = (City) o;
+
+		return super.equals(o);
+	}
+
+	@Override
+	public int hashCode() {
+		System.out.println("City - HashCode");
+		int hash = 5;
+		hash = 31 * hash + Criterion1.hashCode();
+		hash = 31 * hash + Criterion2.hashCode();
+		hash = 31 * hash + Criterion2.hashCode();
+		long cr4long = Double.doubleToLongBits(Criterion4);
+		long cr5long = Double.doubleToLongBits(Criterion5);
+		hash = 31 * hash + (int) (cr4long ^ (cr4long >>> 32));
+		hash = 31 * hash + (int) (cr5long ^ (cr5long >>> 32));
+		return hash;
+	}
 		
 }
 
