@@ -9,6 +9,8 @@ import Service.*;
 import static Service.City.*;
 import static Service.Traveller.*;
 
+// ****** Main class is not complete yet and needs some changes. Check Gui class ****** //
+
 public class Main {
 
     final static String outputFilePath = "/hmaptraveller.txt";
@@ -21,6 +23,9 @@ public class Main {
 
         // connecting to database
         makeJDBCConnection();
+
+
+        gui.startingMenu();
 
         // retrieving file and database data
         readCollectionFromFile(outputFilePath);
@@ -56,14 +61,10 @@ public class Main {
 
         try (Scanner s = new Scanner(System.in)) {
 
-            System.out.println("Type first city's criterion");
-            setCriterion1(s.next());
-            System.out.println("Type second city's criterion");
-            setCriterion2(s.next());
-            System.out.println("Type third city's criterion");
-            setCriterion3(s.next());
-            // Criterion4,Criterion5 (lat,lon) will be calculated by OpenweatherMap
 
+            gui.cityFieldsPage();
+
+            gui.travellerFieldsPage();
 
             // set paggenger's attribute(t/b/tr) by calling  checkpassengersattribute method
             // checking passengers attribute and reading object fields
@@ -81,13 +82,11 @@ public class Main {
                 String inputcountry = s.next();
                 try {
                     if(getPassengersAttribute().equals("traveller")) {
-                        // Return the article for inputcity from RetrieveWikipedia
-                        article=City.RetrieveWikipedia(inputcity);
-
                         // adds inputcity and traveller objects in the trmap
                         trmap.put(inputcity, t);
-                        // Call OpenweatherMap and check city's temperature, lat and lon
-                        City.RetrieveOpenWeatherMap(inputcity, inputcountry, appid);
+
+                        gui.resultsPage(inputcity,inputcountry,appid);
+
                         // adds inputcity and city object in the citymap
                         citymap.put(inputcity, c);
                         // checking the similarity between city and traveller objects
@@ -95,19 +94,17 @@ public class Main {
                         // checking if this traveller is eligible for a free ticket
                         t.FreeTicket(travellers, c, t);
                         // Check if inputcity exists in arraylist cities
-                        t.CompareCities(cities,article, c, t);
+                        t.CompareCities(cities,City.RetrieveWikipedia(inputcity), c, t);
                         // Check if it's raining in inputcity and if so, exclude inputcity
                         t.CompareCities(weather,cities,inputcity);
                         break;
                     }
                     if (getPassengersAttribute().equals("business")) {
-                        // Return the article for inputcity from RetrieveWikipedia
-                        article=City.RetrieveWikipedia(inputcity);
-
                         // add Business object to trmap
                         trmap.put(inputcity, b);
-                        // Call OpenweatherMap and check city's temperature, lat and lon
-                        City.RetrieveOpenWeatherMap(inputcity, inputcountry, appid);
+
+                        gui.resultsPage(inputcity,inputcountry,appid);
+
                         // adds inputcity and city object in the citymap
                         citymap.put(inputcity, c);
                         // checking the similarity between city and business objects
@@ -115,19 +112,18 @@ public class Main {
                         // checking if business object is eligible for a free ticket
                         b.FreeTicket(travellers, c, b);
                         // Check if inputcity exists in arraylist cities
-                        b.CompareCities(cities,article, c, b);
+                        b.CompareCities(cities,City.RetrieveWikipedia(inputcity), c, b);
                         // Check if it's raining in inputcity and if so exclude inputcity
                         b.CompareCities(weather,cities,inputcity);
                         break;
                     }
                     if (getPassengersAttribute().equals("tourist")) {
-                        // Return the article for inputcity from RetrieveWikipedia
-                        article=City.RetrieveWikipedia(inputcity);
-
                         // add Traveller objects in travojects list
                         trmap.put(inputcity, tr);
-                        // Call OpenweatherMap and check city's temperature, lat and lon
-                        City.RetrieveOpenWeatherMap(inputcity, inputcountry, appid);
+
+                        gui.resultsPage(inputcity,inputcountry,appid);
+
+
                         // add City objects to cityobjects list
                         citymap.put(inputcity, c);
                         // checking for the similarity between city and tourist objects
@@ -135,7 +131,7 @@ public class Main {
                         // checking if tourist is eligible for a free ticket
                         tr.FreeTicket(travellers, c, tr);
                         // Check if inputcity exists in arraylist cities
-                        tr.CompareCities(cities,article, c, tr);
+                        tr.CompareCities(cities,City.RetrieveWikipedia(inputcity), c, tr);
                         // Check if it's raining in inputcity and if so exclude inputcity
                         tr.CompareCities(weather,cities,inputcity);
                         break;
@@ -385,4 +381,3 @@ public class Main {
     }
 
 }
-
