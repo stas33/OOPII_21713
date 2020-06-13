@@ -1,6 +1,8 @@
 package Service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import javax.ws.rs.core.MediaType;
@@ -18,6 +20,8 @@ import weather.OpenWeatherMap;
 import wikipedia.MediaWiki;
 
 public class City {
+
+
 
     // create city constructor
     public City(String criterion1, String criterion2, String criterion3, double criterion4, double criterion5) {
@@ -116,21 +120,32 @@ public class City {
         return article;
     }
 
-    public static void CheckCityInCollection(String cityName, Map<String, City> map) {
+    // take cityname as parameter and a map
+    // create a candiate object and if user input fields do not already exist in map then add them
+    public static void CheckCityInCollection(String cityName, HashMap<String, City> map) {
         Scanner s = new Scanner(System.in);
         City cand = new City("", "", "", 0.0d, 0.0d);
-        setCriterion1(cityName);
-        setCriterion2(s.next());
-        setCriterion3(s.next());
-        setCriterion4(s.nextDouble());
-        setCriterion5(s.nextDouble());
+        System.out.println("Type Cityname");
+        City.setCriterion1(cityName);
+        System.out.println("Type Criterion 2");
+        City.setCriterion2(s.next());
+        System.out.println("Type Criterion 3");
+        City.setCriterion3(s.next());
+        try {
+            System.out.println("Type Criterion 4");
+            setCriterion4(s.nextDouble());
+            System.out.println("Type Criterion 5");
+            setCriterion5(s.nextDouble());
+        } catch (InputMismatchException i) {
+            i.printStackTrace();
+        }
         for (Map.Entry<String, City> entry : map.entrySet()) {
-            boolean check = map.equals(cand);
+            boolean check = map.containsValue(cand);
             if(!check) {
                 map.put(cityName, cand);
                 System.out.println("City added successfully");
             } else {
-                System.out.println("cityName already exists in the collection");
+                System.out.println("CityName already exists or not found in the collection");
             }
         }
     }
@@ -166,7 +181,5 @@ public class City {
         return hash;
     }
 
+
 }
-
-
-
